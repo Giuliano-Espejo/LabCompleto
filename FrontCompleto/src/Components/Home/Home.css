@@ -1,0 +1,57 @@
+/* Home.css */
+#instrumentos {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.content {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: 20px;
+}
+
+.instrumentos {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  flex: 3;
+}
+
+.carrito {
+  flex: 1;
+  margin-left: 1rem;
+  padding: 20px;
+  background: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-right: 2%;
+}
+
+/* Añadir estilos para las tarjetas */
+.instrumentos .card-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.instrumentos .card-container .card {
+  width: 100%;
+  max-width: 350px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: center;
+  padding: 10px;
+}

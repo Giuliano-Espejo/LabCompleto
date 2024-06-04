@@ -1,0 +1,59 @@
+.lista-instrumentos {
+  list-style-type: none;
+  padding-left: 5%;
+  width: 100%;
+  padding-right: 5%;
+}
+
+.lista-instrumentos li {
+  display: flex;
+  align-items: center;
+  padding: 1%;
+  border-bottom: 1px solid #ccc;
+  width: 100%;
+}
+
+.lista-instrumentos li img {
+  width: 25%;
+  height: auto;
+  margin-right: 4%;
+}
+
+.lista-instrumentos li .info {
+  flex: auto;
+}
+
+.lista-instrumentos li .info h3 {
+  margin: 0;
+  font-size: large;
+}
+
+.lista-instrumentos li .info p {
+  margin: 1% 0;
+  font-size: medium;
+}
+
+#gratis {
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  align-items: left;
+}
+
+#gratis img {
+  margin-top: 1%;
+  width: auto;
+  height: 50%;
+  margin-right: 0%;
+}
+
+Button {
+  margin-left: 5%;
+}
+
+select{
+  width: 33%;
+}
+h5{
+  text-align: center;
+}

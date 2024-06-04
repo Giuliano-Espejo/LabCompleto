@@ -1,0 +1,11 @@
+input, select {
+  display: "flex";
+  flex-direction: "column";
+  gap: "2vh";
+  width: 100%;
+  margin: 1%;
+}
+
+h2{
+    font-size: large;
+}
