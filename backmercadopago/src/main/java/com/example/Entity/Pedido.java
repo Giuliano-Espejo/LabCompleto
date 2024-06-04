@@ -25,7 +25,7 @@ public class Pedido {
 
     private Double totalPedido;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "pedido_id")
     private Set<PedidoDetalle> pedidosDetalle = new HashSet<>();
 }

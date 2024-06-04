@@ -21,30 +21,16 @@ import java.util.List;
 public class MercadoPagoController {
 
     @PostMapping
+    @CrossOrigin("*")
     public MpPreference getList(@RequestBody Pedido pedido) {
 
-        /*
-        *  List<PreferenceItemRequest> items = new ArrayList<>();
-        for (PedidoDetalleDto detalle : pedido.getPedidosDetalle()) {
-            PreferenceItemRequest itemRequest = PreferenceItemRequest.builder()
-                    .title(detalle.getTitle())
-                    .quantity(detalle.getQuantity())
-                    .unitPrice(new BigDecimal(detalle.getUnitPrice()))
-                    .build();
-            items.add(itemRequest);
-        }
-        *
-        * */
-
-
-
         try {
-            MercadoPagoConfig.setAccessToken("TEST-7646015955067723-052208-bbd41f2a9bbcc395124a6dc722a605c8-296809149");
+            MercadoPagoConfig.setAccessToken("TEST-2798566161607489-052311-a8e97e298823f472ca61f8c492cbb871-322089866");
 
             //Creamos la preferencia
             //PREFERENCIA DE VENTA
             PreferenceItemRequest itemRequest = PreferenceItemRequest.builder()
-                    .id("1234")//id hardcodeado
+                    .id(pedido.getId().toString())
                     .title("compra producto")
                     .description("Pedido realizado desde el carrito de compras")
                     .pictureUrl("https://acdn.mitiendanube.com/stores/813/752/products/spruce41-31-d9af8e704d16b81a9216426267078691-1024-1024.jpg")
@@ -54,13 +40,13 @@ public class MercadoPagoController {
                     .build();
             List<PreferenceItemRequest> items = new ArrayList<>();
             items.add(itemRequest);
-
+            System.out.println("\n item request " + itemRequest.getUnitPrice()  + " id " + itemRequest.getId());
             //preferencia de control de sucesos en el caso que toque lo redirecciona a otra pagna
             //aca no pueden ir url localesm, pero hacemos una excepcion
             PreferenceBackUrlsRequest backUrls = PreferenceBackUrlsRequest.builder()
-                    .success("http://localhost:5173/instrumentos")
-                    .pending("http://localhost:5173/instrumentos")
-                    .failure("http://localhost:5173/instrumentos")
+                    .success("http://localhost:5173")
+                    .pending("http://localhost:5173")
+                    .failure("http://localhost:5173")
                     .build();
 
             //preferencia que tendra todas las preferencias que se hayan creado
@@ -78,9 +64,8 @@ public class MercadoPagoController {
             MpPreference mpPreference = new MpPreference();
             mpPreference.setStatusCode(preference.getResponse().getStatusCode());
             mpPreference.setId(preference.getId());
+            System.out.println("\n " + mpPreference.getId() + " status " + mpPreference.getStatusCode());
             return mpPreference;
-
-
         } catch (MPException e) {
             throw new RuntimeException(e);
 

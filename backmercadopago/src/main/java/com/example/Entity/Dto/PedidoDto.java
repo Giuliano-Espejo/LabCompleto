@@ -17,5 +17,5 @@ public class PedidoDto {
 
     private Double totalPedido;
 
-    private Set<Long> pedidosDetalle = new HashSet<>();
+    private Set<PedidoDetalleDto> pedidosDetalle = new HashSet<>();
 }

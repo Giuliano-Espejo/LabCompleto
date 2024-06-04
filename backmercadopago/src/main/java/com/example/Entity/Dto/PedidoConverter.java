@@ -11,13 +11,13 @@ import java.util.stream.Collectors;
 public class PedidoConverter {
 
     @Autowired
-    private PedidoDetalleService pedidoDetalleService;
+    private PedidoDetalleConverter pedidoDetalleConverter;
 
     public Pedido toEntity(PedidoDto p){
         Pedido pedido = new Pedido();
         pedido.setTotalPedido(p.getTotalPedido());
         pedido.setPedidosDetalle(p.getPedidosDetalle().stream()
-                .map(idPedidoDetalle -> pedidoDetalleService.findById(idPedidoDetalle))
+                .map(pedidoDetalleDto -> pedidoDetalleConverter.toEntity(pedidoDetalleDto))
                 .collect(Collectors.toSet()));
         return pedido;
     }
