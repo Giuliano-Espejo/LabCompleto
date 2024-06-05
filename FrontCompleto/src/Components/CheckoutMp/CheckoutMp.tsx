@@ -38,27 +38,35 @@ function CheckoutMP() {
                 console.log("Preference ID: ", response.id);
                 if (response) {
                     setIdPreference(response.id);
+                    limpiarCarrito();
+                    return response.id; // Retornando el idPreference
                 }
-                limpiarCarrito();
             } catch (error) {
                 console.error('Error al crear la preferencia de Mercado Pago:', error);
                 alert('Hubo un error al crear la preferencia de Mercado Pago');
+                return null;
             }
         } else {
             alert("Agregue al menos un instrumento al carrito");
+            return null;
         }
-    };
+    }
+
 
     //initMercadoPago('TEST-2bbca99c-f003-4787-b8c2-6282d340d911', { locale: 'es-AR' });
 
-    const handleCompra = (idPreference: string) => {
-        getPreferenceMP();
-        setTimeout(() => {
-            const url = `https://sandbox.mercadopago.com.ar/checkout/v1/redirect?preference-id=${idPreference}`;
-            window.open(url, '_blank');
-            limpiarCarrito();
-        }, 2000);
-
+    const handleCompra = async () => {
+        const preferenceId = await getPreferenceMP();
+        if (totalPedido != 0) {
+            setTimeout(() => {
+                console.log("preference en handleCompra ", preferenceId);
+                const url = `https://sandbox.mercadopago.com.ar/checkout/v1/redirect?preference-id=${preferenceId}`;
+                window.open(url, '_blank');
+                limpiarCarrito();
+            }, 2000);
+        }else{
+            console.log("El carrito esta vacio");
+        }
 
     }
 
@@ -68,7 +76,7 @@ function CheckoutMP() {
             <div className={idPreference ? 'divVisible' : 'divInvisible'}>
                 <Wallet initialization={{ preferenceId: idPreference, redirectMode: "blank" }} customization={{ texts: { valueProp: 'smart_option' } }} />
             </div> */}
-            <Button onClick={() => handleCompra(idPreference)} className='primary'> Compra con Mercado Pago</Button>
+            <Button onClick={() => handleCompra()} className='primary'> Compra con Mercado Pago</Button>
         </div>
     );
 }

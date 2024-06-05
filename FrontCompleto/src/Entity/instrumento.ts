@@ -14,4 +14,5 @@ export default interface Instrumento{
     categoria:Categoria | null
     cantidad:number;
     addCarrito?:ChangeEventHandler;
+    
 }

@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @RestController
 @CrossOrigin("*")
 @RequestMapping("/pedido")
@@ -37,5 +40,17 @@ public class PedidoController {
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable Long id){
         return ResponseEntity.ok(pedidoService.delete(id));
+    }
+
+    @GetMapping("/grouped")
+    public List<Object[]> getPedidosGroupedByMonthAndYear() {
+        return pedidoService.getPedidosGroupedByMonthAndYear();
+    }
+
+    @GetMapping("/groupedByInstrument")
+    public List<List<Object>> getPedidosGroupedByInstrument() {
+        return pedidoService.getPedidosDetalleGroupedByInstrumento().stream()
+                .map(p -> List.of(p[0], p[1]))
+                .collect(Collectors.toList());
     }
 }

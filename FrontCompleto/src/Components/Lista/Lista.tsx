@@ -11,6 +11,7 @@ export default function Lista() {
   const [instrumentos, setInstrumentos] = useState<Instrumento[]>([]);
   const [categorias, setCategorias] = useState<Categoria[]>([]);
   const [selectedCategoria, setSelectedCategoria] = useState<string>('');
+  const [userRole, setUserRole] = useState<string>(''); // Estado para almacenar el rol del usuario
 
   const handleSubmitForm = async (id: number) => {
     const confirmacion = window.confirm("¿Estás seguro que deseas eliminar este instrumento?");
@@ -46,6 +47,15 @@ export default function Lista() {
     };
 
     fetchData();
+  }, []);
+
+  useEffect(() => {
+    // Obtener el rol del usuario del almacenamiento local o de algún otro lugar
+    const usuario = localStorage.getItem('usuario');
+    if (usuario) {
+      const { rol } = JSON.parse(usuario);
+      setUserRole(rol);
+    }
   }, []);
 
   const handleCategoriaChange = async (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -86,10 +96,17 @@ export default function Lista() {
                 <p style={{ color: "orange" }}>Costo de envío al interior de Argentina: ${instrumento.costoEnvio}</p>
               )}
               <p>{instrumento.cantidadVendida} vendidos</p>
-              <Link to={`/abm/${instrumento.id}`}>
-                <Button className='primary'>Editar</Button>
-              </Link>
-              <Button className='btn btn-danger' onClick={() => handleSubmitForm(instrumento.id)}>Borrar</Button>
+              {userRole === 'ADMIN' && ( // Condición para mostrar los botones solo si el usuario es admin
+                <>
+                  <Link to={`/abm/${instrumento.id}`}>
+                    <Button className='btn btn-warning'>Editar</Button>
+                  </Link>
+                  <Button className='btn btn-danger' onClick={() => handleSubmitForm(instrumento.id)}>Borrar</Button>
+                  <Link to={`http://localhost:8080/reporte/pdf/${instrumento.id}`}>
+                    <Button className='btn btn-danger'>PDF</Button>
+                  </Link>
+                </>
+              )}
             </div>
           </li>
         ))}

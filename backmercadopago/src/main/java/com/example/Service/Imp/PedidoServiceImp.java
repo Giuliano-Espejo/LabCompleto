@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -59,5 +60,20 @@ public class PedidoServiceImp implements PedidoService {
         }catch (Exception e ){
             return false;
         }
+    }
+
+    @Override
+    public List<Pedido> findByFecha(Date fechaDesde, Date fechaHasta) {
+        return pedidoRepository.findAllByFechaPedidoBetween(fechaDesde,fechaHasta);
+    }
+
+    @Override
+    public List<Object[]> getPedidosGroupedByMonthAndYear() {
+        return pedidoRepository.findPedidosGroupedByMonthAndYear();
+    }
+
+    @Override
+    public List<Object[]> getPedidosDetalleGroupedByInstrumento() {
+        return pedidoRepository.findPedidosDetalleGroupedByInstrumento();
     }
 }

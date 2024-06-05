@@ -29,3 +29,11 @@ export async function save(ped: pedido, detalle: any[]): Promise<pedido> {
         throw error;
     }
 }
+
+export async function pedidoGruped() {
+    return (await axios.get(urlBase + "/grouped")).data;
+}
+
+export async function pedidoGroupedByInstrument() {
+    return (await axios.get(urlBase + '/groupedByInstrument')).data;
+  }
